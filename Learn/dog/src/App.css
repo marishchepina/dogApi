@@ -35,6 +35,10 @@ input::-webkit-search-results-button,
 input::-webkit-search-results-decoration {
   display: none;
 }
+
+button {
+  cursor: pointer;
+}
 input:focus,
 button:focus {
   outline: none;
@@ -51,6 +55,17 @@ header {
   border: 1px dashed #ccc;
   z-index: 20;
 }
+.header__heard {
+  right: 3%;
+  top: -3px;
+}
+.heard {
+  position: absolute;
+  color: #ec7263;
+  cursor: pointer;
+  font-size: 3rem;
+  transform: rotate(90deg);
+}
 /*#submit {
   margin-left: 10px;
   font-size: 1.2rem;
@@ -61,15 +76,7 @@ header {
   color: #fff;
   width: 130px;
 }
-#heart {
-  position: absolute;
-  right: 3%;
-  top: -3px;
-  color: #ec7263;
-  cursor: pointer;
-  font-size: 3rem;
-  transform: rotate(90deg);
-}
+
 #submit:hover,
 #heart:hover {
   cursor: pointer;
