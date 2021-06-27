@@ -1,0 +1,27 @@
+.like {
+  height: 65px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  background: ghostwhite;
+  padding: 20px 0 0 20px;
+}
+
+.like:hover,
+.like--active {
+  background: white;
+}
+
+.like--active .like__heard {
+  color: #ec7263;
+}
+.like__heard {
+  display: block;
+  right: 25px;
+  top: 0;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 3rem;
+  transform: rotate(90deg);
+  position: absolute;
+}

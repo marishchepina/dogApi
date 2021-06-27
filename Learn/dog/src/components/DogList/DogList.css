@@ -1,0 +1,27 @@
+.list--left {
+  position: fixed;
+}
+.list {
+  left: 3%;
+  top: 52px;
+  padding: 4rem 0 0 0;
+  max-height: 83.5%;
+  width: 46%;
+  overflow-y: auto;
+  z-index: 10;
+}
+.list__close {
+  position: absolute;
+  background: ghostwhite;
+  top: 0;
+  height: 4rem;
+  width: 100%;
+  font-size: 2rem;
+  text-align: right;
+  padding: 5px 20px 0 20px;
+  font-weight: bold;
+}
+.list__close:hover {
+  cursor: pointer;
+  color: #ec7263;
+}
