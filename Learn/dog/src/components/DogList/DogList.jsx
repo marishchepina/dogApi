@@ -4,8 +4,6 @@ import Dog from "../Dog/Dog";
 import "./DogList.css";
 
 let DogList = (props) => {
-  console.log(props);
-  debugger;
   const { hideLeftList } = useContext(Context);
 
   return (

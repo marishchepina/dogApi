@@ -9,7 +9,7 @@ const Dog = ({ dog, index, addToLiked }) => {
 
   return (
     <div className={classes.join(" ")}>
-      <span>{index + 1}</span>
+      <span>{index + 1}. </span>
       {dog.name}
       <span className="like__heard" onClick={() => addToLiked(dog.id)}>
         ❥

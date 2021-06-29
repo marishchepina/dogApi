@@ -8,14 +8,7 @@ import LikedList from "./components/LikedList/LikedList";
 
 function App() {
   const [dogList, setDogList] = React.useState([]);
-  const [dogLikedList, setDogLikedList] = React.useState([
-    {
-      id: 1,
-      liked: true,
-      name: "Harlamov",
-    },
-  ]);
-
+  const [dogLikedList, setDogLikedList] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [searchParam, setSearchParam] = React.useState("");
   const [leftListOpen, setleftListOpen] = React.useState(false);
@@ -39,19 +32,18 @@ function App() {
   function addToLiked(id) {
     setDogList(
       dogList.map((dog) => {
-        localStorage.setItem("liked", dog);
         if (dog.id === id) {
           dog.liked = true;
+          setDogLikedList([...dogLikedList, dog]);
         }
         return dog;
       })
     );
+    console.log("newLiked: " + dogLikedList);
   }
 
-  function removeDog(id) {
-    let p = dogList.filter((todo) => todo.id !== id);
-    setDogList(dogList.filter((todo) => todo.id !== id));
-    console.log(p);
+  function removeDogFromLiked(id) {
+    setDogLikedList(dogLikedList.filter((dog) => dog.id !== id));
   }
 
   function setNewSearchParam(param) {
@@ -77,11 +69,16 @@ function App() {
 
   return (
     <Context.Provider
-      value={{ removeDog, hideLeftList, hideRightList, removeFromLiked }}
+      value={{
+        removeDogFromLiked,
+        hideLeftList,
+        hideRightList,
+        removeFromLiked,
+        addToLiked,
+      }}
     >
       <header>
         <Search onSearch={setNewSearchParam} />
-        {loading && <Loader />}
         {dogList.length && leftListOpen ? (
           <DogList
             dogList={dogList}
@@ -91,15 +88,20 @@ function App() {
         ) : (
           loading
         )}
-        <button onClick={showRightList}>Show</button>
-        righttListOpen ?
-        <LikedList
-          dogLikedList={dogLikedList}
-          // removeDogFromLiked={removeFromLiked}
-          rightListOpen={rightListOpen}
-        />
-        : ''
+        <span className="header__heard heard" onClick={showRightList}>
+          ❥
+        </span>
+        {rightListOpen ? (
+          <LikedList
+            dogLikedList={dogLikedList}
+            removeDogFromLiked={removeFromLiked}
+            rightListOpen={rightListOpen}
+          />
+        ) : (
+          ""
+        )}
       </header>
+      {loading && <Loader />}
     </Context.Provider>
   );
 }
