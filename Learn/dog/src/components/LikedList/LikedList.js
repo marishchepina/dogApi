@@ -4,7 +4,7 @@ import LikedDog from "../LikedDog/LikedDog";
 //import "./DogList.css";
 
 let LikedList = (props) => {
-  const { removeFromLiked, hideRightList } = useContext(Context);
+  const { removeDogFromLiked, hideRightList } = useContext(Context);
   console.log("props " + props);
 
   return (
@@ -21,7 +21,7 @@ let LikedList = (props) => {
             index={index}
             dogLiked={el}
             key={el.id}
-            onClick={removeFromLiked.bind(null, el.id)}
+            onClick={removeDogFromLiked.bind(null, el.id)}
           />
         );
       })}

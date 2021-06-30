@@ -15,24 +15,22 @@ function App() {
   const [rightListOpen, setRightListOpen] = React.useState(false);
 
   useEffect(() => {
-    fetch(`https://api.thedogapi.com/v1/breeds/search?q=${searchParam}`)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (parsedJson) {
-        setDogList(parsedJson);
-        setLoading(false);
-        setleftListOpen(true);
-      })
-      .catch(function (err) {
-        console.log("помилка");
-      });
+    const loadData = async () => {
+      const res = await fetch(
+        `https://api.thedogapi.com/v1/breeds/search?q=${searchParam}`
+      );
+      const data = await res.json();
+      setDogList(data);
+      setLoading(false);
+      setleftListOpen(true);
+    };
+    loadData();
   }, [searchParam]);
 
   function addToLiked(id) {
     setDogList(
       dogList.map((dog) => {
-        if (dog.id === id) {
+        if (dog.id === id && dogLikedList.includes(dog) === false) {
           dog.liked = true;
           setDogLikedList([...dogLikedList, dog]);
         }
@@ -44,11 +42,18 @@ function App() {
 
   function removeDogFromLiked(id) {
     setDogLikedList(dogLikedList.filter((dog) => dog.id !== id));
+    let newDoglist = dogList.map((dog) => {
+      if (dog.id === id) {
+        dog.liked = false;
+      }
+      return dog;
+    });
+    console.log("newDoglist " + newDoglist);
+    setDogList([...newDoglist]);
   }
 
   function setNewSearchParam(param) {
     setSearchParam(param);
-    console.log(searchParam);
   }
 
   function hideLeftList() {
@@ -63,17 +68,12 @@ function App() {
     setRightListOpen(true);
   }
 
-  function removeFromLiked() {
-    console.log("removeFromLiked");
-  }
-
   return (
     <Context.Provider
       value={{
         removeDogFromLiked,
         hideLeftList,
         hideRightList,
-        removeFromLiked,
         addToLiked,
       }}
     >
@@ -94,7 +94,7 @@ function App() {
         {rightListOpen ? (
           <LikedList
             dogLikedList={dogLikedList}
-            removeDogFromLiked={removeFromLiked}
+            removeDogFromLiked={removeDogFromLiked}
             rightListOpen={rightListOpen}
           />
         ) : (
